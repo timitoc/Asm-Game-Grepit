@@ -1,0 +1,43 @@
+%macro scadere 2
+	mov eax, %1
+	sub eax, %2
+	push eax
+%endmacro
+
+%macro rmac 2
+	%define x %1
+	%define y %2
+
+	mov eax, x
+	shl eax, y
+
+    mov ebx, x
+	shr ebx, 32-y
+
+	or eax, ebx
+%endmacro
+
+%macro generate_random_integer 0
+	mov ax, word [state(crtRand)]
+	mov bx, 12073
+
+	imul bx
+
+	mov word [state(crtRand)], ax
+
+	ADD word [state(crtRand)], 45161
+	AND word [state(crtRand)], 32767
+
+	; ax %= WIDTH
+
+	; backup ax value
+	;mov ebx, eax
+
+	mov dx, 0
+	mov ax, word [state(crtRand)]
+	mov bx, WIDTH
+	div bx
+
+	mov ax, dx
+
+%endmacro
