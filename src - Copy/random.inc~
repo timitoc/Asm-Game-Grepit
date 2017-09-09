@@ -1,4 +1,0 @@
-%macro generate_random_integer 0
-rdtsc
-and eax, ffh
-%endmacro
